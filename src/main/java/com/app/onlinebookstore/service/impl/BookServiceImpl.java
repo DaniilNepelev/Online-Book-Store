@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import com.app.onlinebookstore.mapper.BookMapper;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -41,10 +40,22 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookDto deleteById(Long id) {
-        Book deletedBook = bookRepository.deleteById(id);
-        return Optional.ofNullable(deletedBook)
+    public List<BookDto> findAllByAuthor(String author) {
+        return bookRepository.findAllByAuthor(author).stream()
                 .map(bookMapper::toDto)
-                .orElseThrow(() -> new EntityNotFoundException("Can't find book with id: " + id));
+                .toList();
     }
+
+    @Override
+    public List<BookDto> findAllById(Long id) {
+        return bookRepository.findAllById(id).stream()
+                .map(bookMapper::toDto)
+                .toList();
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        bookRepository.deleteById(id);
+    }
+
 }

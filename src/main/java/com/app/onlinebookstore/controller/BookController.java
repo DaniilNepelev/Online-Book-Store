@@ -2,6 +2,7 @@ package com.app.onlinebookstore.controller;
 
 import com.app.onlinebookstore.dto.BookDto;
 import com.app.onlinebookstore.dto.CreateRequestDto;
+import com.app.onlinebookstore.model.Book;
 import com.app.onlinebookstore.service.BookService;
 import lombok.RequiredArgsConstructor;
 import java.util.List;
@@ -19,7 +20,7 @@ public class BookController {
     }
 
     @GetMapping(value = "/{id}")
-    public BookDto getBookById(@PathVariable Long id) {
+    public BookDto getById(@PathVariable Long id) {
         return bookService.getById(id);
     }
 
@@ -29,7 +30,17 @@ public class BookController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public BookDto deleteBookById(@PathVariable Long id) {
-        return bookService.deleteById(id);
+    public void deleteById(@PathVariable Long id) {
+        bookService.deleteById(id);
+    }
+
+    @GetMapping(value = "/{id}")
+    public List<BookDto> findAllById(@PathVariable Long id) {
+        return bookService.findAllById(id);
+    }
+
+    @GetMapping(value = "/{author}")
+    public List<BookDto> findAllByAuthor(@PathVariable String author) {
+        return bookService.findAllByAuthor(author);
     }
 }

@@ -1,15 +1,13 @@
 package com.app.onlinebookstore.repository;
 
 import com.app.onlinebookstore.model.Book;
+import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
-import java.util.Optional;
 
-public interface BookRepository {
-    Book save(Book book);
+public interface BookRepository extends JpaRepository<Book, Long> {
+    List<Book> findAllByAuthor(String author);
 
-    Optional<Book> findById(Long id);
+    List<Book> findAllById(Long id);
 
-    List<Book> findAll();
-
-    Book deleteById(Long id);
+    void deleteById(Long id);
 }
