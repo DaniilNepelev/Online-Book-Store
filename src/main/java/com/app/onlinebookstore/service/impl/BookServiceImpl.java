@@ -7,11 +7,10 @@ import com.app.onlinebookstore.repository.BookRepository;
 import com.app.onlinebookstore.service.BookService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import com.app.onlinebookstore.mapper.BookMapper;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -37,6 +36,14 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookDto getById(Long id) {
         return bookRepository.findById(id)
+                .map(bookMapper::toDto)
+                .orElseThrow(() -> new EntityNotFoundException("Can't find book with id: " + id));
+    }
+
+    @Override
+    public BookDto deleteById(Long id) {
+        Book deletedBook = bookRepository.deleteById(id);
+        return Optional.ofNullable(deletedBook)
                 .map(bookMapper::toDto)
                 .orElseThrow(() -> new EntityNotFoundException("Can't find book with id: " + id));
     }

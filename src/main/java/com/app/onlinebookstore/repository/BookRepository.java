@@ -1,6 +1,5 @@
 package com.app.onlinebookstore.repository;
 
-import com.app.onlinebookstore.dto.BookDto;
 import com.app.onlinebookstore.model.Book;
 import java.util.List;
 import java.util.Optional;
@@ -11,4 +10,6 @@ public interface BookRepository {
     Optional<Book> findById(Long id);
 
     List<Book> findAll();
+
+    Book deleteById(Long id);
 }

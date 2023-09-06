@@ -8,6 +8,10 @@ import java.util.List;
 
 public interface BookService {
     BookDto save(CreateRequestDto bookRequestDto);
+
     List<BookDto> findAll();
+
     BookDto getById(Long id);
+
+    BookDto deleteById(Long id);
 }
